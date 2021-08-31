@@ -4,6 +4,11 @@
 
     <zones @update-time="updateTime" @add-time="addTime" />
 
+    <error-message
+      v-if="showError"
+      message="You have reached clock amount limit"
+      @close-message="closeMessage"
+    />
     <h1 v-for="(time, index) in times" :key="index" class="title">
       {{ time.hours }}:{{ time.minutes }}:{{ time.seconds }} -
       {{ time.details.timezone }}
@@ -13,6 +18,7 @@
 
 <script>
 import Zones from "./components/Zones.vue";
+import ErrorMessage from "./components/ErrorMessage.vue";
 import timeDetails from "@/mixins/timeDetails.js";
 
 export default {
@@ -20,11 +26,13 @@ export default {
   name: "App",
   components: {
     Zones,
+    ErrorMessage,
   },
   data() {
     return {
       times: [],
       zone: "Europe/Kiev",
+      showError: true,
     };
   },
   mounted() {
@@ -44,6 +52,9 @@ export default {
     addTime(time) {
       this.times.push(time);
     },
+    closeMessage() {
+      this.showError = false
+    }
   },
 };
 </script>
@@ -55,6 +66,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
@@ -84,5 +98,9 @@ export default {
 
 .ml-1 {
   margin-left: 0.2rem;
+}
+
+.error {
+  max-width: 60%;
 }
 </style>
