@@ -17,7 +17,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .error {
   display: flex;
   justify-content: space-between;
@@ -31,6 +31,8 @@ export default {
     border: 0;
     background-color: transparent;
     font-size: 35px;
+    cursor: pointer;
+    color: #2c3e50;
   }
 }
 </style>
