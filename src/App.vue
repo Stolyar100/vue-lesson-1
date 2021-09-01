@@ -9,16 +9,21 @@
       message="You have reached clock amount limit"
       @close-message="closeMessage"
     />
-    <h1 v-for="(time, index) in times" :key="index" class="title">
-      {{ time.hours }}:{{ time.minutes }}:{{ time.seconds }} -
-      {{ time.details.timezone }}
-    </h1>
+    <clock
+      v-for="(time, index) in times"
+      :time="time"
+      :id="index"
+      :key="index"
+      @delete-clock="deleteClock"
+      class="title"
+    />
   </div>
 </template>
 
 <script>
 import Zones from "./components/Zones.vue";
 import ErrorMessage from "./components/ErrorMessage.vue";
+import Clock from "./components/Clock.vue";
 import timeDetails from "@/mixins/timeDetails.js";
 
 export default {
@@ -27,12 +32,13 @@ export default {
   components: {
     Zones,
     ErrorMessage,
+    Clock,
   },
   data() {
     return {
       times: [],
       zone: "Europe/Kiev",
-      showError: true,
+      showError: false,
     };
   },
   mounted() {
@@ -53,8 +59,12 @@ export default {
       this.times.push(time);
     },
     closeMessage() {
-      this.showError = false
-    }
+      this.showError = false;
+    },
+    deleteClock(clockId) {
+      console.log('deleteClock ' + clockId);
+      this.times.splice(clockId, 1);
+    },
   },
 };
 </script>
