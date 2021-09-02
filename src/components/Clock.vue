@@ -1,7 +1,7 @@
 <template lang="">
   <div class="clock">
-    <h1 class="clock__title">{{ time.hours }}:{{ time.minutes }}:{{ time.seconds }} -
-      {{ time.details.timezone }}</h1>
+    <h1 class="clock__title">{{ hours }}:{{ minutes }}:{{ seconds }} -
+      {{ clock.details.timezone }}</h1>
     <button @click="deleteClock" class="clock__button">&times;</button>
   </div>
 </template>
@@ -9,7 +9,7 @@
 export default {
   name: "Clock",
   props: {
-    time: Object,
+    clock: Object,
     id: Number,
   },
   methods: {
@@ -17,6 +17,17 @@ export default {
       this.$emit("delete-clock", this.id);
     },
   },
+  computed: {
+    hours() {
+      return this.clock.date.getHours()
+    },
+    minutes() {
+      return this.clock.date.getMinutes()
+    },
+    seconds() {
+      return this.clock.date.getSeconds()
+    },
+  }
 };
 </script>
 <style lang="scss" scoped>
