@@ -7,7 +7,7 @@
     <error-message
       v-if="showError"
       message="You have reached clock amount limit"
-      @close-message="closeMessage"
+      @close-message="closeErrorMessage"
     />
     <clock
       v-for="(time, index) in times"
@@ -56,14 +56,26 @@ export default {
       this.times.splice(this.times.length - 1, 1, timeDetails);
     },
     addTime(time) {
-      this.times.push(time);
+      if (this.isReachedClockLimit) {
+        this.showErrorMessage();
+      } else {
+        this.times.push(time);
+      }
     },
-    closeMessage() {
+    showErrorMessage() {
+      this.showError = true;
+    },
+    closeErrorMessage() {
       this.showError = false;
     },
     deleteClock(clockId) {
-      console.log('deleteClock ' + clockId);
+      console.log("deleteClock " + clockId);
       this.times.splice(clockId, 1);
+    },
+  },
+  computed: {
+    isReachedClockLimit() {
+      return this.times.length + 1 > 5;
     },
   },
 };
