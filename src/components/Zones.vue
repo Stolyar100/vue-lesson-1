@@ -13,11 +13,11 @@
       </label>
 
       <div class="get-zones">
-        <button @click="updateTime" class="btn default-el">
+        <button @click="updateClock" class="btn default-el">
           Get current time
         </button>
 
-        <button @click="addTime" class="btn default-el ml-1">
+        <button @click="addClock" class="btn default-el ml-1">
           +
         </button>
       </div>
@@ -43,14 +43,14 @@ export default {
     });
   },
   methods: {
-    addTime() {
-      this.getTimeDetails().then((timeDetails) => {
-        this.$emit("add-time", timeDetails);
+    addClock() {
+      this.getClockDetails().then((clockDetails) => {
+        this.$emit("add-clock", clockDetails);
       });
     },
-    updateTime() {
-      this.getTimeDetails().then((timeDetails) => {
-        this.$emit("update-time", timeDetails);
+    updateClock() {
+      this.getClockDetails().then((clockDetails) => {
+        this.$emit("update-clock", clockDetails);
       });
     },
   },

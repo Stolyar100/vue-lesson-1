@@ -2,7 +2,7 @@
   <div id="app">
     <h1 class="title">World time application</h1>
 
-    <zones @update-time="updateTime" @add-time="addTime" />
+    <zones @update-clock="updateClock" @add-clock="addClock" />
 
     <error-message
       v-if="showError"
@@ -10,8 +10,8 @@
       @close-message="closeErrorMessage"
     />
     <clock
-      v-for="(time, index) in times"
-      :time="time"
+      v-for="(clock, index) in clocks"
+      :clock="clock"
       :id="index"
       :key="index"
       @delete-clock="deleteClock"
@@ -36,30 +36,30 @@ export default {
   },
   data() {
     return {
-      times: [],
+      clocks: [],
       zone: "Europe/Kiev",
       showError: false,
     };
   },
   mounted() {
-    this.getTimeDetails().then((timeDetails) => {
-      this.addTime(timeDetails);
+    this.getClockDetails().then((clockDetails) => {
+      this.addClock(clockDetails);
     });
   },
   methods: {
-    updateTime(timeDetails) {
-      if (!this.times.length) {
-        this.addTime(timeDetails);
+    updateClock(clockDetails) {
+      if (!this.clocks.length) {
+        this.addClock(clockDetails);
         return;
       }
 
-      this.times.splice(this.times.length - 1, 1, timeDetails);
+      this.clocks.splice(this.clocks.length - 1, 1, clockDetails);
     },
-    addTime(time) {
+    addClock(clock) {
       if (this.isReachedClockLimit) {
         this.showErrorMessage();
       } else {
-        this.times.push(time);
+        this.clocks.push(clock);
       }
     },
     showErrorMessage() {
@@ -70,12 +70,12 @@ export default {
     },
     deleteClock(clockId) {
       console.log("deleteClock " + clockId);
-      this.times.splice(clockId, 1);
+      this.clocks.splice(clockId, 1);
     },
   },
   computed: {
     isReachedClockLimit() {
-      return this.times.length + 1 > 5;
+      return this.clocks.length + 1 > 5;
     },
   },
 };
