@@ -79,7 +79,7 @@ export default {
       return clock;
     },
     updateClocksTime() {
-      this.clocks.map((clock) => this.increaseDateTime(clock));
+      this.clocks = this.clocks.map((clock) => this.increaseDateTime(clock));
     },
   },
   computed: {
