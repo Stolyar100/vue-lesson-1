@@ -2,12 +2,10 @@
   <div class="available-zones">
     <div>
       <label>
-        <p>
-          Available zones
-        </p>
+        <p>Available zones</p>
         <select v-model="zone" class="select default-el">
-          <option v-for="(zone, index) in zones" :value="zone" :key="index"
-            >{{ zone }}
+          <option v-for="(zone, index) in zones" :value="zone" :key="index">
+            {{ zone }}
           </option>
         </select>
       </label>
@@ -17,9 +15,7 @@
           Get current time
         </button>
 
-        <button @click="addClock" class="btn default-el ml-1">
-          +
-        </button>
+        <button @click="addClock" class="btn default-el ml-1">+</button>
       </div>
     </div>
   </div>
@@ -27,7 +23,7 @@
 
 <script>
 const axios = require("axios");
-import timeDetails from '@/mixins/timeDetails.js'
+import timeDetails from "@/mixins/timeDetails.js";
 
 export default {
   name: "WorldTime",

@@ -45,6 +45,7 @@ export default {
     this.getClockDetails().then((clockDetails) => {
       this.addClock(clockDetails);
     });
+    setInterval(this.updateClocksTime, 1000);
   },
   methods: {
     updateClock(clockDetails) {
@@ -71,6 +72,14 @@ export default {
     deleteClock(clockId) {
       console.log("deleteClock " + clockId);
       this.clocks.splice(clockId, 1);
+    },
+    increaseDateTime(clock) {
+      const increasedSeconds = clock.date.getSeconds() + 1;
+      clock.date.setSeconds(increasedSeconds);
+      return clock;
+    },
+    updateClocksTime() {
+      this.clocks.map((clock) => this.increaseDateTime(clock));
     },
   },
   computed: {
