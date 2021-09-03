@@ -75,7 +75,8 @@ export default {
     },
     increaseDateTime(clock) {
       const increasedSeconds = clock.date.getSeconds() + 1;
-      clock.date.setSeconds(increasedSeconds);
+      const updatedDate = clock.date.setSeconds(increasedSeconds);
+      clock.date = new Date(updatedDate);
       return clock;
     },
     updateClocksTime() {
