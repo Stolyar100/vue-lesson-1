@@ -39,13 +39,14 @@ export default {
       clocks: [],
       zone: "Europe/Kiev",
       showError: false,
+      clocksAmountLimit: 5,
     };
   },
   mounted() {
     this.getClockDetails().then((clockDetails) => {
       this.addClock(clockDetails);
     });
-    setInterval(this.updateClocksTime, 1000);
+    this.launchClocksUpdate();
   },
   methods: {
     updateClock(clockDetails) {
@@ -59,9 +60,10 @@ export default {
     addClock(clock) {
       if (this.isReachedClockLimit) {
         this.showErrorMessage();
-      } else {
-        this.clocks.push(clock);
+        return;
       }
+
+      this.clocks.push(clock);
     },
     showErrorMessage() {
       this.showError = true;
@@ -72,6 +74,9 @@ export default {
     deleteClock(clockId) {
       console.log("deleteClock " + clockId);
       this.clocks.splice(clockId, 1);
+    },
+    launchClocksUpdate() {
+      setInterval(this.updateClocksTime, 1000);
     },
     increaseDateTime(clock) {
       const increasedSeconds = clock.date.getSeconds() + 1;
@@ -85,7 +90,7 @@ export default {
   },
   computed: {
     isReachedClockLimit() {
-      return this.clocks.length + 1 > 5;
+      return this.clocks.length + 1 > this.clockAmountLimit;
     },
   },
 };
