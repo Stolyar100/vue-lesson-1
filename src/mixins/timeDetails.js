@@ -1,4 +1,4 @@
-const axios = require("axios");
+import WorldTimeApiService from '../services/WorldTimeApiService'
 
 export default {
   data() {
@@ -8,8 +8,7 @@ export default {
   },
   methods: {
     getClockDetails() {
-      return axios
-        .get(`http://worldtimeapi.org/api/timezone/${this.zone}`)
+      return WorldTimeApiService.getTimeZonesDetails(this.zone)
         .then(res => {
           const date = new Date(res.data.datetime);
 

@@ -22,8 +22,8 @@
 </template>
 
 <script>
-const axios = require("axios");
 import timeDetails from "@/mixins/timeDetails.js";
+import WorldTimeApiService from '../services/WorldTimeApiService'
 
 export default {
   name: "WorldTime",
@@ -34,7 +34,7 @@ export default {
     };
   },
   mounted() {
-    axios.get("http://worldtimeapi.org/api/timezone").then((res) => {
+    WorldTimeApiService.getTimeZones().then((res) => {
       this.zones = res.data;
     });
   },
