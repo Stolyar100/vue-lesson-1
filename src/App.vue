@@ -46,7 +46,7 @@ export default {
     this.getClockDetails().then((clockDetails) => {
       this.addClock(clockDetails);
     });
-    this.launchClocksUpdate()
+    this.launchClocksUpdate();
   },
   methods: {
     updateClock(clockDetails) {
@@ -60,9 +60,10 @@ export default {
     addClock(clock) {
       if (this.isReachedClockLimit) {
         this.showErrorMessage();
-      } else {
-        this.clocks.push(clock);
+        return;
       }
+
+      this.clocks.push(clock);
     },
     showErrorMessage() {
       this.showError = true;
